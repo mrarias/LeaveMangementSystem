@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using LeaveMangementSystem.Web.Data;
-using LeaveMangementSystem.Web.Models.LeaveTypes;
-using AutoMapper;
+﻿using LeaveMangementSystem.Web.Models.LeaveTypes;
 using LeaveMangementSystem.Web.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace LeaveMangementSystem.Web.Controllers
 {
+    [Authorize(Roles = Roles.Administrator)]
     //this is primary constructor
     public class LeaveTypesController(ILeaveTypesService _leaveTypesService) : Controller
     {
@@ -32,7 +25,7 @@ namespace LeaveMangementSystem.Web.Controllers
             //var data = await _context.LeaveTypes.ToListAsync();
             //// convert the datamodel into a view model - Use AutoMapper
             //var viewData = _mapper.Map<List<LeaveTypeReadOnlyVM>>(data);
-            
+
             //this is a sample dependency injection where the above script is abtracted or 
             //or encapsulate a functionality behind a class that makes the controllers thinner
             var viewData = await _leaveTypesService.GetAll();
